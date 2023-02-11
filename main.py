@@ -20,4 +20,20 @@ with open('config.yml', 'w') as file:
 
 scraper = ApiScraper(config['authentication']['cacheGuid'], config['authentication']['token'])
 
-print(scraper.get_positions(config['positions']['date']))
+# print(scraper.get_positions(config['positions']['date']))
+# scraper.get_hist_positions(
+#     config['historicalPositions']['dateStart'],
+#     config['historicalPositions']['dateEnd'],
+#     config['historicalPositions']['freq'],
+#     config['historicalPositions']['write']
+# )
+# scraper.get_earnings(
+#     config['historicalPositions']['dateStart'],
+#     config['historicalPositions']['dateEnd'],
+#     config['historicalPositions']['write']
+# )
+scraper.get_trades(
+    config['historicalPositions']['dateStart'],
+    config['historicalPositions']['dateEnd'],
+    config['historicalPositions']['write']
+)

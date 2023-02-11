@@ -1,6 +1,9 @@
 # Personal configuration
 config.yml
 
+#Testing CSV
+.csv
+
 ########### DEFAULT ##############
 
 # Byte-compiled / optimized / DLL files

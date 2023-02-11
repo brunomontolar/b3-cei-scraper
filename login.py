@@ -69,7 +69,7 @@ class Login:
             WebDriverWait(self.browser, timeout=1000, poll_frequency=1).until(
                 EC.staleness_of(element))
 
-            wait.until(EC.title_is("Área logada | B3"))
+            wait.until(EC.title_is("Área do Investidor | B3"))
             self.cacheGuid = self.browser.execute_script(
                 "return sessionStorage.getItem('cache-guid');")
             self.token = 'Bearer ' + \
