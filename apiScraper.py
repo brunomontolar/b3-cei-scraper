@@ -98,21 +98,25 @@ class ApiScraper:
         }
         page = 1
         self.trades = pd.DataFrame()
+        
         while True:
             response = self.session.get(
                 f'https://investidor.b3.com.br/api/extrato-negociacao-ativos/v1/negociacao-ativos/{page}',
                 params=params,
                 verify=False
             )
-
             for item in response.json()['itens']:
                 self.trades = pd.concat([self.trades, (pd.json_normalize(
                     item, record_path='negociacaoAtivos', meta='data'))])
             if response.json()['paginaAtual'] == response.json()['totalPaginas']:
                 break
+            curPage = response.json()['paginaAtual']
+            totPages = response.json()['totalPaginas']
+            print(f'Scraped trades page {curPage} of {totPages}')
             page = page + 1
         if write:
             self.trades.to_csv(f'trades_{dateStart}_{dateEnd}.csv')
+            print(f'Saved trades file: trades_{dateStart}_{dateEnd}.csv')
         return self.trades
 
     def get_earnings(self, dateStart=None, dateEnd=None, write=False):
@@ -148,7 +152,7 @@ class ApiScraper:
             self.earnings.to_csv(f'earnings_{dateStart}_{dateEnd}.csv')
         return self.earnings
 
-    def get_positions_earnings(self, dateStart=None, dateEnd=None):
+    def get_positions_earnings(self, dateStart=None, dateEnd=None, write=False):
         if dateStart is None:
             dateStart = (datetime.today() - timedelta(days=31)
                          ).strftime("%Y-%m-%d")
@@ -177,7 +181,8 @@ class ApiScraper:
             if response.json()['paginaAtual'] == response.json()['totalPaginas']:
                 break
             page = page + 1
-
+        if write:
+            self.positionsEarnings.to_csv(f'positionsEarnings_{dateStart}_{dateEnd}.csv')
         return self.positionsEarnings
 
     def get_future_earnings(self, date=None):
@@ -218,6 +223,7 @@ class ApiScraper:
             dateEnd = datetime.today().strftime("%Y-%m-%d")
         self.historicalPositions = pd.DataFrame()
         for dt in pd.date_range(dateStart, dateEnd, freq=freq):
+            print(f'Getting position from date: {dt.strftime("%Y-%m-%d")}')
             df = self.get_positions(dt.strftime("%Y-%m-%d"))
             df['date'] = dt
             self.historicalPositions = pd.concat([self.historicalPositions, df])

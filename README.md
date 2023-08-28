@@ -74,6 +74,18 @@ trades:
 ```
 
 ## Dividendos
+- Período igual ou inferior a 12 meses
+- Formato AAAA-MM-DD
+- Escolher data inicial e data final do filtro
+- **Como padrão, são escolhidos os últimos 30 dias, contando a partir de ontem**
+```
+earnings:
+    dateStart:
+    dateEnd:
+    write:
+```
+
+## Dividendos
 TODO:
 Escrever detalhes da função get_earnings
 Referente às remunerações de dividendos, juros de capital próprio e outros redimentos

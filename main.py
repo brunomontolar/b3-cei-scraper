@@ -32,8 +32,13 @@ scraper = ApiScraper(config['authentication']['cacheGuid'], config['authenticati
 #     config['historicalPositions']['dateEnd'],
 #     config['historicalPositions']['write']
 # )
-scraper.get_trades(
-    config['historicalPositions']['dateStart'],
-    config['historicalPositions']['dateEnd'],
-    config['historicalPositions']['write']
+# scraper.get_trades(
+#     config['trades']['dateStart'],
+#     config['trades']['dateEnd'],
+#     config['trades']['write']
+# )
+scraper.get_positions_earnings(
+    config['trades']['dateStart'],
+    config['trades']['dateEnd'],
+    config['trades']['write']
 )
