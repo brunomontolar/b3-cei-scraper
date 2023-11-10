@@ -1,0 +1,37 @@
+# Configuring SQL Server for Develop
+## Installation on Ubuntu
+
+Install:
+
+    sudo apt install postgresql postgresql-contrib
+
+Start:
+
+    pg_ctlcluster 12 main start
+
+Create new user role:
+    
+    sudo -u postgres createuser --interactive
+
+Choose finance_updater as name
+
+Create db:
+
+    sudo -u postgres createdb finance_updater
+    sudo -u postgres createdb finance
+
+Create user:
+
+    sudo adduser finance_updater
+
+Choose password of your choice
+
+Connect using new user:
+
+    sudo -u finance_updater psql -d finance
+
+Check connection info with:
+
+    \conninfo
+
+    
